@@ -1,202 +1,99 @@
 
 
+
 <!DOCTYPE html>
-<html lang='zh-CN'>
-<head>
-    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+<html>
 
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
-    <title>红番阁永久地址发布页_红番阁APP下载_红番阁最新地址</title>
-    <link rel='shortcut icon' href='https://webapi.hongfanplay.com/hxc/css/favicon.ico'>
-    <link rel='stylesheet' href='https://webapi.hongfanplay.com/hxc/css/forever.css'>
-
-</head>
-<body>
-    <script>
-        doAdblock();
-        function doAdblock() {
-            (function () {
-                function A() { }
-                A.prototype = {
-                    rules: {
-                        '17173_in': {
-                            'find': /http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
-                            'replace': "http://swf.adtchrome.com/17173_in_20150522.swf"
-                        },
-                        '17173_out': {
-                            'find': /http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
-                            'replace': "http://swf.adtchrome.com/17173_out_20150522.swf"
-                        },
-                        '17173_live': {
-                            'find': /http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
-                            'replace': "http://swf.adtchrome.com/17173_stream_20150522.swf"
-                        },
-                        '17173_live_out': {
-                            'find': /http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
-                            'replace': "http://swf.adtchrome.com/17173.out.Live.swf"
-                        }
-                    },
-                    _done: null,
-                    get done() {
-                        if (!this._done) {
-                            this._done = new Array();
-                        }
-                        return this._done;
-                    },
-                    addAnimations: function () {
-                        var style = document.createElement('style');
-                        style.type = 'text/css';
-                        style.innerHTML = 'object,embed{\
-                                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
-                                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
-                                -o-animation-duration:.001s;-o-animation-name:playerInserted;\
-                                animation-duration:.001s;animation-name:playerInserted;}\
-                                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
-                                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
-                                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
-                                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
-                        document.getElementsByTagName('head')[0].appendChild(style);
-                    },
-                    animationsHandler: function (e) {
-                        if (e.animationName === 'playerInserted') {
-                            this.replace(e.target);
-                        }
-                    },
-                    replace: function (elem) {
-                        if (this.done.indexOf(elem) != -1) return;
-                        this.done.push(elem);
-                        var player = elem.data || elem.src;
-                        if (!player) return;
-                        var i, find, replace = false;
-                        for (i in this.rules) {
-                            find = this.rules[i]['find'];
-                            if (find.test(player)) {
-                                replace = this.rules[i]['replace'];
-                                if ('function' === typeof this.rules[i]['preHandle']) {
-                                    this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
-                                } else {
-                                    this.reallyReplace.bind(this, elem, find, replace)();
-                                }
-                                break;
-                            }
-                        }
-                    },
-                    reallyReplace: function (elem, find, replace) {
-                        elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
-                        var b = elem.querySelector("param[name='movie']");
-                        this.reloadPlugin(elem);
-                    },
-                    reloadPlugin: function (elem) {
-                        var nextSibling = elem.nextSibling;
-                        var parentNode = elem.parentNode;
-                        parentNode.removeChild(elem);
-                        var newElem = elem.cloneNode(true);
-                        this.done.push(newElem);
-                        if (nextSibling) {
-                            parentNode.insertBefore(newElem, nextSibling);
-                        } else {
-                            parentNode.appendChild(newElem);
-                        }
-                    },
-                    init: function () {
-                        var handler = this.animationsHandler.bind(this);
-                        document.body.addEventListener('webkitAnimationStart', handler, false);
-                        document.body.addEventListener('msAnimationStart', handler, false);
-                        document.body.addEventListener('oAnimationStart', handler, false);
-                        document.body.addEventListener('animationstart', handler, false);
-                        this.addAnimations();
-                    }
-                };
-                new A().init();
-            })();
-        }
-        //remove baidu search ad
-        if (document.URL.indexOf('www.baidu.com') >= 0) {
-            if (document && document.getElementsByTagName && document.getElementById && document.body) {
-                var aa = function () {
-                    var all = document.body.querySelectorAll("#content_left div,#content_left table");
-                    for (var i = 0; i < all.length; i++) {
-                        if (/display:\s?(table|block)\s!important/.test(all[i].getAttribute("style"))) { all[i].style.display = "none"; all[i].style.visibility = 'hidden'; }
-                    }
-                    all = document.body.querySelectorAll('.result.c-container[id="1"]');
-                    //if(all.length == 1) return;
-                    for (var i = 0; i < all.length; i++) {
-                        if (all[i].innerHTML && all[i].innerHTML.indexOf('广告') > -1) {
-                            all[i].style.display = "none"; all[i].style.visibility = 'hidden';
-                        }
-                    }
-                }
-                aa();
-                document.getElementById('wrapper_wrapper').addEventListener('DOMSubtreeModified', aa)
-            };
-        }
-        //remove sohu video ad
-        if (document.URL.indexOf("tv.sohu.com") >= 0) {
-            if (document.cookie.indexOf("fee_status=true") == -1) { document.cookie = 'fee_status=true' };
-        }
-        //remove 56.com video ad
-        if (document.URL.indexOf("56.com") >= 0) {
-            if (document.cookie.indexOf("fee_status=true") == -1) { document.cookie = 'fee_status=true' };
-        }
-        //fore iqiyi enable html5 player function
-        if (document.URL.indexOf("iqiyi.com") >= 0) {
-            if (document.cookie.indexOf("player_forcedType=h5_VOD") == -1) {
-                document.cookie = 'player_forcedType=h5_VOD'
-                if (localStorage.reloadTime && Date.now() - parseInt(localStorage.reloadTime) < 60000) {
-                    console.log('no reload')
-                } else {
-                    location.reload()
-                    localStorage.reloadTime = Date.now();
-                }
+    <head>
+        <meta charset="UTF-8">
+	    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    
+        <title>index</title>
+        <style>
+            html,
+            body {
+                padding: 0;
+                margin: 0;
+                background: #272727;
+                font: 400 16px/1.7 "Microsoft JhengHei", sans-serif;
             }
-        }
-    </script>
-    <header>
-        <img src='https://webapi.hongfanplay.com/hxc/css/logo.png?var=0667' alt='预防失联，请保存好本页面'>
-    </header>
-    <section id="container">
-        <div class="main-content" id="content">
-            <h2>请大家下载好APP,防止失联</h2>
-			            <div class="content">			
-                <div class="top">
-                    <img src="/hxc/css/tip.png" style="width:30px;height:30px">
-                    <h3 class="sub-title">大陆用户最新地址</h3>
-                </div>
-                <div class="btn-content">
-                     <a id="player"  href="https://webapi.hongfanplay.com/hxc/url/video.php" target="_blank" class="btn">网站直联入口</a>
-                    <a href="/hxc/jianjie/" class="btn">关于新版红番阁</a>
-					<a href="https://i.2ge.xyz/app/xxs.html" class="btn">免费电影APP</a>
-                  <a href="https://webapi.hongfanplay.com/hxc/jianjie/app.html" class="btn">APP下载入口</a>
-                    <!--<a href="javascript:goweb()" class="btn">网站直联通道</a>
-                    <a href="javascript:goapp()" class="btn">app下载通道</a>-->
-                </div>
-            </div>
+
+            div,ul,li,h1,p,h2{
+                padding: 0;
+                margin: 0;
+            }
+            ul,li{
+                list-style: none;
+            }
+            .main{
+                text-align: center;
+            }
+            .content{
+                background: #fff;
+                padding: 20px;
+                display: inline-block;
+            }
+            .content-top{
+                font-size: 14px;
+            }
+            .content-top h2{
+                background: #FF8901;
+                color: #fff;
+                font-size: 20px;
+                padding: 10px 0;
+                font-weight: normal;
+            }
+            .content-top a{
+                display: block;
+                color: #FF8901;
+                font-style: normal;
+                display: block;
+                margin: 2px 0;
+            }
+            .content-top li{
+                padding: 20px 0;
+                border-bottom: 1px solid #E2E0DE
+            }
+            .main h1{
+                color: #FF8901;
+                font-weight: normal;
+                padding: 40px 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="main">
+            <h1>红番阁福利社 | 地址发布页</h1>
             <div class="content">
-                <div class="top">
-                    <img src="https://webapi.hongfanplay.com/hxc/css/tip.png" style="width:30px;height:30px">
-                    <h3 class="sub-title">温馨提示：</h3>
+                <div class="content-top">
+                    <h2>请大家 Ctrl+D 收藏本页</h2>
+                    <ul>
+                        <li>
+                            <span style="font-size:24px">红番阁永久地址</span>
+                           <a id='go' href="https://www.hfgav.com" target="_blank" style="font-size:18px">www.hfgav.com</a>
+                        </li>
+						 
+                        <li style="font-size:18px">
+                            红番阁福利入口
+                            <a href="https://ts.8ii.xyz/hxc/" target="_blank">地址1</a>
+                            <a href="https://dh.8ii.xyz/hxc/" target="_blank">地址2</a>
+			                <a href="https://webapi.hongfanplay.com/hxc/url/video.php" target="_blank">直连入口</a>
+                        </li>
+						 <li style="font-size:18px">
+                            红番阁APP下载入口
+                            <a href="https://ts.8ii.xyz/hxc/jianjie/app.html" target="_blank">APP下载</a>
+                            
+			   
+                        </li>
+                    </ul>
+                    <p>如果以上地址均无法打开，欢迎联系客服告知： <br>
+                        
+                        <a href="https://www.smartsupp.com/widget/8855c80c7f01fc79cce3b0029ab4ea089f2634ba"><span style="font-size:18px">点我联系客服</span></a></p>
                 </div>
-                 所有老站会员务必尽快加客服QQ,新站不再支持QQ客服<br>开放注册后发送新老账号给客服人员<br/>客服再将老站会员转移到新站会员继续使用<br><br><div align="center" style="font-size:25px">www.hfgav.com</div>
             </div>
         </div>
-		
-        <div class="main-content" id="loading" style="text-align:center; display:none;">
-            <p style="font-size:2rem">线路检测页</p>
-            <p>NEETWORK SPEED TEST CENTER</p>
-            <div style="font-weight:normal;margin:50px 0 90px;">线路测试中<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div> 将直接前往站点<br>请耐心等候</div>
-            <p class="jav_color">海量视频 每日更新</p>
-        </div><div align="center" style="color:#FF0000">18岁以下未成年人禁止访问</div>
-        <div class="address">来信获取最新地址：<a style="color:#888;" href="hfg1314@gmail.com">hfg1314@gmail.com</a></div>
-    </section>
-	
-    <script src="https://webapi.hongfanplay.com/hxc/css/content.js"></script>
-    <script>
-
-        var urls =
-            [
-                 'aHR0cHM6Ly93d3cuaHhjYmIxOC5jb20=',
-            ];
-    </script>
-</body>
+    </body>
 </html>
